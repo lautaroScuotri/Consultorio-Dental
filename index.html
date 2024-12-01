@@ -8,29 +8,20 @@
 </head>
 <body>
     <header>
-        <h1>Simulador de Consultorio Dental</h1>
-        <p>Gestión de citas y tratamientos dentales</p>
+        <h1>Consultorio La Muela</h1>
+        <div id="carritoIcon">
+            <span>0</span>
+            <img src="https://static.vecteezy.com/system/resources/previews/016/314/413/non_2x/shopping-cart-free-png.png" alt="Carrito">
+        </div>
     </header>
-
     
     <main>
-        <section>
-            <h2>Formulario de Paciente</h2>
-            <p>Ingrese los datos del paciente para registrar la consulta.</p>
-            <button>Ingresar Datos</button>
-        </section>
-        
-        <section>
-            <h2>Seleccionar Tratamiento</h2>
-            <p>Elija el tratamiento deseado para el paciente.</p>
-            <button>Seleccionar Tratamiento</button>
-        </section>
-
-        <section>
-            <h2>Confirmar Cita</h2>
-            <p>Revise y confirme los detalles de la cita.</p>
-            <button>Confirmar</button>
-        </section>
+        <section id="productos"></section>
+        <div id="carrito" class="carrito">
+            <h3>Carrito</h3>
+            <div id="productosCarrito"></div>
+            <p>Total: <span id="total">$0</span></p>
+        </div>
     </main>
 
 <script src="main.js"></script>

@@ -1,75 +1,108 @@
-let tratamiento1 = "Limpieza dental";
-let costo1 = 1500;
+document.getElementById("carritoIcon").addEventListener("click", () => {
+    document.getElementById("carrito").classList.toggle("active");
+});
 
-let tratamiento2 = "Empaste dental";
-let costo2 = 3000;
+// Carrito y datos iniciales
+const Carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-let tratamiento3 = "Extracción de muela";
-let costo3 = 5000;
+const tratamientosDisponibles = [
+    { id: 1, nombre: "Limpieza Dental", precio: 1500 },
+    { id: 2, nombre: "Empaste Dental", precio: 3000 },
+    { id: 3, nombre: "Extracción de Muela", precio: 5000 },
+    { id: 4, nombre: "Blanqueamiento Dental", precio: 4000 },
+];
 
-let tratamiento4 = "Blanqueamiento dental";
-let costo4 = 4000;
+const productos = document.getElementById("productos");
+const productosCarrito = document.getElementById("productosCarrito");
+const total = document.getElementById("total");
+const carritoIcon = document.getElementById("carritoIcon");
 
-function solicitarDatosPaciente() {
-    let nombre = prompt("Ingrese el nombre del paciente:");
-    let edad = parseInt(prompt("Ingrese la edad del paciente:"));
-    let motivo = prompt("Ingrese el motivo de la consulta:");
-    console.log(`Paciente: ${nombre}, Edad: ${edad}, Motivo: ${motivo}`);
-    return { nombre, edad, motivo };
+// Función para agregar eventos a botones "Comprar"
+function agregarEventosBotones() {
+    const botones = document.getElementsByClassName("botonesCompra");
+    const arrayDeBotones = Array.from(botones);
+
+    arrayDeBotones.forEach((btn) => {
+        btn.addEventListener("click", (evento) => {
+            const tratamientoId = parseInt(evento.target.dataset.id);
+            const tratamiento = tratamientosDisponibles.find((t) => t.id === tratamientoId);
+
+            // Verificar si ya existe en el carrito
+            const existente = Carrito.find((item) => item.id === tratamientoId);
+
+            if (existente) {
+                existente.cantidad++;
+            } else {
+                Carrito.push({ ...tratamiento, cantidad: 1 });
+            }
+
+            actualizarCarrito();
+        });
+    });
 }
 
-function seleccionarTratamiento() {
-    let mensaje = "Seleccione un tratamiento:\n";
-    mensaje += "1. " + tratamiento1 + " - $" + costo1 + "\n";
-    mensaje += "2. " + tratamiento2 + " - $" + costo2 + "\n";
-    mensaje += "3. " + tratamiento3 + " - $" + costo3 + "\n";
-    mensaje += "4. " + tratamiento4 + " - $" + costo4 + "\n";
+// Función para agregar eventos a botones "Eliminar"
+function agregarEventosBotonesEliminar() {
+    const botones = document.getElementsByClassName("botonesEliminar");
+    const arrayDeBotones = Array.from(botones);
 
-    let seleccion = parseInt(prompt(mensaje));
+    arrayDeBotones.forEach((btn) => {
+        btn.addEventListener("click", (evento) => {
+            const tratamientoId = parseInt(evento.target.dataset.id);
 
-    if (seleccion === 1) {
-        alert("Ha elegido: " + tratamiento1 + " por $" + costo1);
-        return { nombre: tratamiento1, costo: costo1 };
-    } else if (seleccion === 2) {
-        alert("Ha elegido: " + tratamiento2 + " por $" + costo2);
-        return { nombre: tratamiento2, costo: costo2 };
-    } else if (seleccion === 3) {
-        alert("Ha elegido: " + tratamiento3 + " por $" + costo3);
-        return { nombre: tratamiento3, costo: costo3 };
-    } else if (seleccion === 4) {
-        alert("Ha elegido: " + tratamiento4 + " por $" + costo4);
-        return { nombre: tratamiento4, costo: costo4 };
-    } else {
-        alert("Selección no válida.");
-        return null;
-    }
+            const index = Carrito.findIndex((item) => item.id === tratamientoId);
+
+            if (index !== -1) {
+                const item = Carrito[index];
+                if (item.cantidad > 1) {
+                    item.cantidad--;
+                } else {
+                    Carrito.splice(index, 1);
+                }
+            }
+
+            actualizarCarrito();
+        });
+    });
 }
 
-function registrarCita(paciente, tratamiento) {
-    let fecha = prompt("Ingrese la fecha de la cita (DD/MM/AAAA):");
-    let hora = prompt("Ingrese la hora de la cita (HH:MM):");
-    console.log(`Cita registrada para ${paciente.nombre} el ${fecha} a las ${hora}`);
-    return { fecha, hora };
+// Función para actualizar el carrito
+function actualizarCarrito() {
+    productosCarrito.innerHTML = "";
+
+    Carrito.forEach((item) => {
+        productosCarrito.innerHTML += `
+            <div class="producto">
+                <h3>${item.nombre}</h3>
+                <p>Precio: $${item.precio}</p>
+                <p>Cantidad: ${item.cantidad}</p>
+                <button class="botonesEliminar" data-id="${item.id}">Eliminar</button>
+            </div>
+        `;
+    });
+
+    // Actualizar eventos y total
+    agregarEventosBotonesEliminar();
+
+    localStorage.setItem("carrito", JSON.stringify(Carrito));
+
+    total.innerText = "$" + Carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+
+    carritoIcon.children[0].innerText = Carrito.reduce((acc, item) => acc + item.cantidad, 0);
 }
 
+// Render inicial de los tratamientos disponibles
+document.addEventListener("DOMContentLoaded", () => {
+    tratamientosDisponibles.forEach((tratamiento) => {
+        productos.innerHTML += `
+            <div class="producto">
+                <h3>${tratamiento.nombre}</h3>
+                <p>Precio: $${tratamiento.precio}</p>
+                <button class="botonesCompra" data-id="${tratamiento.id}">Agregar</button>
+            </div>
+        `;
+    });
 
-function confirmarConsulta(paciente, tratamiento, cita) {
-    alert(`Resumen de la consulta:\n
-Paciente: ${paciente.nombre}
-Edad: ${paciente.edad}
-Motivo de consulta: ${paciente.motivo}
-Tratamiento seleccionado: ${tratamiento.nombre} - $${tratamiento.costo}
-Fecha y hora de cita: ${cita.fecha} a las ${cita.hora}
-`);
-}
-
-alert("Bienvenido al Simulador de Consultorio Dental");
-const paciente = solicitarDatosPaciente();
-const tratamiento = seleccionarTratamiento();
-
-if (tratamiento) {
-    const cita = registrarCita(paciente, tratamiento);
-    confirmarConsulta(paciente, tratamiento, cita);
-} else {
-    alert("No se ha seleccionado un tratamiento, por lo tanto no se puede agendar la cita.");
-}
+    agregarEventosBotones();
+    actualizarCarrito();
+});
