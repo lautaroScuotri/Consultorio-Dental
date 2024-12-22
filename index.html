@@ -8,22 +8,65 @@
 </head>
 <body>
     <header>
-        <h1>Consultorio La Muela</h1>
+        <h1>Consultorio Dental</h1>
         <div id="carritoIcon">
             <span>0</span>
             <img src="https://static.vecteezy.com/system/resources/previews/016/314/413/non_2x/shopping-cart-free-png.png" alt="Carrito">
         </div>
     </header>
     
-    <main>
-        <section id="productos"></section>
-        <div id="carrito" class="carrito">
+    <div id="carrito" class="carrito hidden">
+        <div class="carrito-header">
             <h3>Carrito</h3>
-            <div id="productosCarrito"></div>
-            <p>Total: <span id="total">$0</span></p>
+            <button id="cerrarCarrito">X</button>
         </div>
+        <div id="productosCarrito"></div>
+        <p>Total: <span id="total">$0</span></p>
+        <button id="completarCompra">Completar Compra</button>
+    </div>
+    
+    <main>
+        <section>
+            <h2>Tratamientos Disponibles</h2>
+            <input type="text" id="filtroNombre" placeholder="Buscar tratamiento por nombre...">
+            <div id="productos"></div>
+        </section>
     </main>
-
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Email: <a href="https://mail.google.com/">lautiscuotri@gmail.com</a></p>
+                <p>Teléfono: <a href="tel:+543512345678">+54 351 7524244</a></p>
+                <p>Dirección: Lavalleja 223, Cordoba, Argentina</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <ul class="social-links">
+                    <li><a href="https://www.linkedin.com/in/lautaroscuotri/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="https://www.linkedin.com/in/lautaroscuotri/" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="https://www.linkedin.com/in/lautaroscuotri/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/in/lautaroscuotri/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+               
+            <div class="footer-section">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="https://clinicacreo.com.ar/quienes-somos/">Sobre Nosotros</a></li>
+                    <li><a href="https://www.argentina.gob.ar/terminos-y-condiciones">Términos y Condiciones</a></li>
+                    <li><a href="https://es.wikipedia.org/wiki/Pol%C3%ADtica_de_privacidad">Política de Privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+           
+        <div class="footer-bottom">
+            <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="main.js"></script>
 </body>
 </html>

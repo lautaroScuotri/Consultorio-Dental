@@ -1,0 +1,8 @@
+{
+    "tratamientos": [
+      { "id": 1, "nombre": "Limpieza Dental", "precio": 1500 },
+      { "id": 2, "nombre": "Empaste Dental", "precio": 3000 },
+      { "id": 3, "nombre": "Extracción de Muela", "precio": 5000 },
+      { "id": 4, "nombre": "Blanqueamiento Dental", "precio": 4000 }
+    ]
+  }

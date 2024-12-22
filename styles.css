@@ -28,7 +28,7 @@ header h1 {
 #carritoIcon {
   position: absolute;
   top: 15px;
-  right: 15px;
+  left: 15px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -106,28 +106,38 @@ main {
   background-color: #218838;
 }
 
-/* Carrito */
-.carrito {
+/* Carrito como modal */
+#carrito {
   position: fixed;
-  top: 20%;
-  right: -350px;
-  width: 350px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  top: 60px; /* Espaciado debajo del header */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  transition: right 0.3s ease-in-out;
-  z-index: 10;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: none; /* Oculto por defecto */
+  z-index: 1000;
 }
 
-.carrito.active {
-  right: 20px;
+#carrito.active {
+  display: block; /* Mostrar cuando esté activo */
 }
 
-.carrito h3 {
+.carrito-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
-  color: #007BFF;
+}
+
+#cerrarCarrito {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 #productosCarrito {
@@ -173,4 +183,75 @@ main {
   font-weight: bold;
   text-align: right;
   margin-top: 1rem;
+}
+
+a {
+  color: #007bff; /* Azul */
+  text-decoration: none;
+}
+/* Estilo básico para el footer */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1 1 300px;
+  margin: 10px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.footer-section p, .footer-section ul {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-section a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+}
+
+.social-links li {
+  margin: 5px 0;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+}
+
+.social-links i {
+  margin-right: 8px;
+}
+
+/* Footer bottom */
+.footer-bottom {
+  background-color: #222;
+  color: #bbb;
+  padding: 10px 0;
+  font-size: 14px;
 }
